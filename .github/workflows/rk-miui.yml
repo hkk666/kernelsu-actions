@@ -175,11 +175,9 @@ jobs:
          tag_name: ${{ env.release_tag }}
          body: |
              K30S/Apollo RK-KSU
-         files: ${{ env.FIRMWARE }}/*
+         path: image_output/*
     
           
     - name: Upload Aliyun
-      run: | 
-         cd image_output
-         cd ..       
+      run: |       
          python aliyun.py --token "${{ secrets.ALIYUN_TOKEN }}" --uploadFloder "RK-KSU" --file "image_output/${FINAL_ZINAME}.zip" 
