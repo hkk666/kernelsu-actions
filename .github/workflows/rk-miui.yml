@@ -23,6 +23,9 @@ on:
         required: false
         type: boolean
         default: true
+
+env:
+  file: aliyun.py
   
 jobs:
   build:
@@ -179,5 +182,6 @@ jobs:
     
           
     - name: Upload Aliyun
-      run: |       
-         python aliyun.py --token "${{ secrets.ALIYUN_TOKEN }}" --uploadFloder "RK-KSU" --file "image_output/${FINAL_ZINAME}.zip" 
+      run: | 
+         cd       
+         python $file --token "${{ secrets.ALIYUN_TOKEN }}" --uploadFloder "RK-KSU" --file "image_output/${FINAL_ZINAME}.zip" 
