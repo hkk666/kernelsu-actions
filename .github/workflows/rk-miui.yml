@@ -147,7 +147,7 @@ jobs:
       run: |
         mkdir image_output
         cd android-kernel
-        TIME=$(TZ=Asia/Shanghai date "+%Y%m%d%H%M")
+        TIME=$(TZ=Asia/Shanghai date "+%Y%m%d")
         mkdir -p tmp
         cp -fp ${{ env.ZIMAGE_DIR }}/Image.gz tmp
         cp -fp ${{ env.ZIMAGE_DIR }}/dtbo.img tmp
@@ -157,19 +157,28 @@ jobs:
         7za a -mx9 tmp.zip *
         cd ..
         echo "FINAL_ZINAME="${{ env.ZIMAGE_NAME }}-${TIME}"" >> $GITHUB_ENV
+        echo "release_tag=${TIME}" >> $GITHUB_ENV
         FINAL_ZINAME="${{ env.ZIMAGE_NAME }}-${TIME}"
         mkdir ${{ env.KERNEL_DIR }}/image_output
         cp -fp tmp/tmp.zip ../image_output/${FINAL_ZINAME}.zip
         md5sum ../image_output/${FINAL_ZINAME}.zip >../image_output/${FINAL_ZINAME}.zip.md5sum
         rm -rf out
         
-    - name: Upload Kernel Image ZIP
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{ env.FINAL_ZINAME }}
-        path: image_output/*
+#    - name: Upload Kernel Image ZIP
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: ${{ env.FINAL_ZINAME }}
+#        path: image_output/*
         
-
+    - name: Upload firmware to release
+      uses: softprops/action-gh-release@v1
+      if: steps.organize.outputs.status == 'success' && !cancelled()
+      with:
+         name: ${{ env.release_name }}
+         tag_name: ${{ env.release_tag }}
+         body: |
+             K30S/Apollo RK-KSU
+         files: ${{ env.FIRMWARE }}/*
     
           
 
