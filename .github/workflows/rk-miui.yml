@@ -182,6 +182,5 @@ jobs:
     
           
     - name: Upload Aliyun
-      run: | 
-         cd       
+      run: |       
          python $file --token "${{ secrets.ALIYUN_TOKEN }}" --uploadFloder "RK-KSU" --file "image_output/${FINAL_ZINAME}.zip" 
