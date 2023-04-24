@@ -2,7 +2,6 @@ name: Realking MIUI Kernel Build
 
 on:
   workflow_dispatch:
-  workflow_call:
     inputs:
       IS_RELEASE:
         required: true
@@ -62,7 +61,6 @@ jobs:
             echo "DEF_CONFIG=apollo_defconfig" >> $GITHUB_ENV
           fi
         fi
-        
 
     - name: Checkout Kernel Source Code
       uses: actions/checkout@v3
