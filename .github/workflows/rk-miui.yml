@@ -179,8 +179,7 @@ jobs:
          body: |
              K30S/Apollo RK-KSU
          path: image_output/*
-    
-          
+              
     - name: Upload Aliyun
       run: |       
          python $file --token "${{ secrets.ALIYUN_TOKEN }}" --uploadFloder "RK-KSU" --file "image_output/${FINAL_ZINAME}.zip" 
