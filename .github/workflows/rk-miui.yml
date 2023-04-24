@@ -2,6 +2,7 @@ name: Realking MIUI Kernel Build
 
 on:
   workflow_dispatch:
+  workflow_call:
     inputs:
       IS_RELEASE:
         required: true
